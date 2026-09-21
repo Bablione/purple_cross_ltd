@@ -143,6 +143,14 @@ function submit() {
       </div>
     </section>
 
-    <footer class="card shadow-sm"><div class="card-body d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3"><p class="small text-body-secondary mb-0"><span class="text-danger">*</span> Required fields</p><div class="d-flex gap-2"><button class="btn btn-secondary" type="button" @click="emit('cancel')">Cancel</button><button class="btn btn-primary" type="submit" :disabled="submitting"><Check :size="17" /> {{ submitLabel }}</button></div></div></footer>
+    <footer class="card shadow-sm">
+      <div class="card-body d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3">
+        <p class="small text-body-secondary mb-0"><span class="text-danger">*</span> Required fields</p>
+        <div class="d-flex gap-2">
+          <button class="btn btn-secondary" type="button" @click="emit('cancel')">Cancel</button>
+          <button class="btn btn-primary" type="submit" :disabled="submitting"><Check :size="17" /> {{ submitLabel }}</button>
+        </div>
+      </div>
+    </footer>
   </form>
 </template>

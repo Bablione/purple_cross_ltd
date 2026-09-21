@@ -8,23 +8,28 @@ const STORAGE_KEY = 'purple_cross_ltd'
 // Load the JSON data
 function loadEmployees(): Employee[] {
   const fallback = () =>
-    (structuredClone(seedEmployees) as EmployeeInput[]).map((employee) => ({
-      id: `${employee.code.toLocaleLowerCase()}`,
-      ...employee,
-    }))
+    createSeedEmployees()
 
-  // Local storage saving
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY)
-    if (!saved) return fallback()
+    // Local storage saving
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (!saved) return fallback()
 
-    const parsed = JSON.parse(saved)
+      const parsed = JSON.parse(saved)
 
-    return Array.isArray(parsed) ? (parsed as Employee[]) : fallback()
+      return Array.isArray(parsed) ? (parsed as Employee[]) : fallback()
 
-  } catch {
-    return fallback()
-  }
+    } catch {
+      return fallback()
+    }
+}
+
+
+function createSeedEmployees(): Employee[] {
+  return (structuredClone(seedEmployees) as EmployeeInput[]).map((employee) => ({
+    id: employee.code.toLocaleLowerCase(),
+    ...employee,
+  }))
 }
 
 function createId(): string {
@@ -44,6 +49,10 @@ export const useEmployeeStore = defineStore('employees', () => {
 
   function findById(id: string): Employee | undefined {
     return employees.value.find((employee) => employee.id === id)
+  }
+
+  function resetEmployees() {
+    employees.value = createSeedEmployees()
   }
 
   function isCodeUnique(code: string, excludeIdentifier?: string): boolean {
@@ -85,5 +94,6 @@ export const useEmployeeStore = defineStore('employees', () => {
     addEmployee,
     updateEmployee,
     deleteEmployee,
+    resetEmployees
   }
 })

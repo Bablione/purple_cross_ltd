@@ -3,6 +3,7 @@ import {
   compareCalendarDates,
   formatCalendarDate,
   getEmploymentStatus,
+  getEmployeeLifecycleStatus,
   getTerminationStatus,
   parseCalendarDate,
 } from './date'
@@ -74,4 +75,25 @@ describe('date utils', () => {
     // If null, return -
     expect(formatCalendarDate(null)).toBe('-')
   })
+
+  it('marks an employee with a past termination date as terminated', () => {
+    
+  expect(
+    getEmployeeLifecycleStatus(
+      '2020-01-01',
+      '2026-09-20',
+      today,
+    ),
+  ).toBe('Terminated')
+})
+
+it('marks an active employee with a future termination as leaving soon', () => {
+  expect(
+    getEmployeeLifecycleStatus(
+      '2020-01-01',
+      '2026-10-01',
+      today,
+    ),
+  ).toBe('To be terminated')
+})
 })

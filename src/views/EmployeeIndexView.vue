@@ -7,7 +7,7 @@ import ConfirmDialog from '../components/ApproveDialog.vue'
 import EmployeeTable, { type SortDirection, type SortKey } from '../components/EmployeeTable.vue'
 import { useEmployeeStore } from '../stores/employeeStore'
 import type { Employee } from '../types/employee'
-import { getEmploymentStatus, getTerminationStatus } from '../utils/date'
+import { getEmployeeLifecycleStatus, getEmploymentStatus, getTerminationStatus } from '../utils/date'
 
 const router = useRouter()
 const employeeStore = useEmployeeStore()
@@ -25,7 +25,16 @@ const announcement = ref('')
 
 // get widgets data values
 const departments = computed(() => [...new Set(employees.value.map((employee) => employee.department))].sort())
-const activeCount = computed(() => employees.value.filter((employee) => getEmploymentStatus(employee.dateOfEmployment) === 'Currently employed' && getTerminationStatus(employee.terminationDate) !== 'Terminated').length)
+const activeCount = computed(() =>
+  employees.value.filter((employee) =>
+    ['Currently employed', 'To be terminated'].includes(
+      getEmployeeLifecycleStatus(
+        employee.dateOfEmployment,
+        employee.terminationDate
+      )
+    )
+  ).length
+)
 const upcomingCount = computed(() => employees.value.filter((employee) => getEmploymentStatus(employee.dateOfEmployment) === 'Employed soon').length)
 const departureCount = computed(() => employees.value.filter((employee) => getTerminationStatus(employee.terminationDate) === 'To be terminated').length)
 
@@ -185,7 +194,7 @@ function confirmDelete() {
     </div>
 
     
-   <button class="btn btn-primary shadow position-fixed bottom-0 end-0 m-3" type="button" aria-label="Create Employee" @click="router.push('/employees/new')" ><Plus :size="16" />New Employee</button>
+   <button class="btn btn-primary shadow position-fixed bottom-0 end-0 m-3 create-employee-button" type="button" aria-label="Create Employee" @click="router.push('/employees/new')" ><Plus :size="16" /><span class="d-none d-md-inline">New Employee</span></button>
     
 
     <ConfirmDialog v-if="employeeToDelete" :title="`Delete ${employeeToDelete.fullName}?`" description="This action cannot be undone. The employee record will be permanently removed." @cancel="employeeToDelete = null" @confirm="confirmDelete" />

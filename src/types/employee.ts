@@ -14,4 +14,4 @@ export interface Employee extends EmployeeInput {
 
 export type EmploymentStatus = 'Employed soon' | 'Currently employed'
 export type TerminationStatus = 'To be terminated' | 'Terminated' | null
-
+export type EmployeeLifeCycleStatus = 'Employed soon' | 'Currently employed' | 'To be terminated' | 'Terminated'
