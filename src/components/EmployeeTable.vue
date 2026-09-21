@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ArrowDown, ArrowUp, ArrowUpDown, Eye, Pencil, Trash2, UsersRound } from '@lucide/vue'
 import type { Employee } from '../types/employee'
-import { formatCalendarDate, getEmploymentStatus, getTerminationStatus } from '../utils/date'
+import { formatCalendarDate, getEmploymentStatus, getTerminationStatus, getEmployeeLifecycleStatus } from '../utils/date'
 
 export type SortKey = 'fullName' | 'occupation' | 'department' | 'dateOfEmployment' | 'terminationDate'
 export type SortDirection = 'asc' | 'desc'
@@ -77,7 +77,9 @@ function initials(name: string): string {
           <td><span class="badge text-bg-light border">{{ employee.department }}</span></td>
           <td>
             <span class="d-block">{{ formatCalendarDate(employee.dateOfEmployment) }}</span>
-            <small :class="getEmploymentStatus(employee.dateOfEmployment) === 'Employed soon' ? 'text-primary' : 'text-success'">{{ getEmploymentStatus(employee.dateOfEmployment) }}</small>
+            <small 
+              v-if="getEmployeeLifecycleStatus(employee.dateOfEmployment, employee.terminationDate) !== 'Terminated'" 
+              :class="getEmployeeLifecycleStatus(employee.dateOfEmployment, employee.terminationDate) === 'Employed soon' ? 'text-primary' : 'text-success'">{{ getEmployeeLifecycleStatus(employee.dateOfEmployment, employee.terminationDate) }}</small>
           </td>
           <td>
             <span class="d-block">{{ formatCalendarDate(employee.terminationDate) }}</span>

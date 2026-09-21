@@ -1,4 +1,4 @@
-import type { EmploymentStatus, TerminationStatus } from '../types/employee'
+import type { EmploymentStatus, TerminationStatus, EmployeeLifeCycleStatus } from '../types/employee'
 
 // Expected format: YYYY-MM-DD
 const DATE_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/
@@ -121,4 +121,28 @@ export function formatCalendarDate(value: string | null): string {
   }
 
   return dateFormatter.format(date)
+}
+
+// Method make sure if someone is terminated, he will not be currently employed
+export function getEmployeeLifecycleStatus(
+  employmentDate: string,
+  terminationDate: string | null,
+  now = new Date(),
+): EmployeeLifeCycleStatus {
+  if (
+    terminationDate &&
+    compareCalendarDates(terminationDate, now) <= 0
+  ) {
+    return 'Terminated'
+  }
+
+  if (compareCalendarDates(employmentDate, now) > 0) {
+    return 'Employed soon'
+  }
+
+  if (terminationDate) {
+    return 'To be terminated'
+  }
+
+  return 'Currently employed'
 }
