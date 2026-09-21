@@ -194,7 +194,7 @@ function confirmDelete() {
     </div>
 
     
-   <button class="btn btn-primary shadow position-fixed bottom-0 end-0 m-3" type="button" aria-label="Create Employee" @click="router.push('/employees/new')" ><Plus :size="16" />New Employee</button>
+   <button class="btn btn-primary shadow position-fixed bottom-0 end-0 m-3 create-employee-button" type="button" aria-label="Create Employee" @click="router.push('/employees/new')" ><Plus :size="16" /><span class="d-none d-md-inline">New Employee</span></button>
     
 
     <ConfirmDialog v-if="employeeToDelete" :title="`Delete ${employeeToDelete.fullName}?`" description="This action cannot be undone. The employee record will be permanently removed." @cancel="employeeToDelete = null" @confirm="confirmDelete" />
