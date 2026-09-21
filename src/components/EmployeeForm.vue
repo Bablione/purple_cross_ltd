@@ -30,7 +30,7 @@ function validateField(field: FormKey): string | undefined {
   switch (field) {
     case 'code':
       if (!value) return 'Employee code is required.'
-      if (!employeeStore.isCodeUnique(String(value))) return 'This employee code is already in use.'
+      if (!employeeStore.isCodeUnique(String(value), props.employee?.id)) return 'This employee code is already in use.'
       break
     case 'fullName':
       if (!value) return 'Full name is required.'

@@ -13,9 +13,10 @@ Creation and organization of an employee management system, composed of
 # Installation
 Clone the repository and install the dependencies:
 
-git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-cd YOUR_REPOSITORY
+git clone https://github.com/Bablione/purple_cross_ltd.git
+cd purple_cross_ltd
 npm install
+npm run dev
 
 
 Start the development server:

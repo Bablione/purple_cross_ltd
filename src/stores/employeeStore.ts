@@ -46,12 +46,14 @@ export const useEmployeeStore = defineStore('employees', () => {
     return employees.value.find((employee) => employee.id === id)
   }
 
-  function isCodeUnique(code: string): boolean {
+  function isCodeUnique(code: string, excludeIdentifier?: string): boolean {
 
     const normalized = code.trim().toLocaleLowerCase()
 
     return !employees.value.some(
-        (employee) => employee.code.trim().toLocaleLowerCase() === normalized,
+        (employee) => 
+          employee.id !== excludeIdentifier &&
+          employee.code.trim().toLocaleLowerCase() === normalized,
     )
   }
 

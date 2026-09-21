@@ -159,9 +159,7 @@ function confirmDelete() {
                 </select>
               </label>
             </div>
-            <div class="col-12 col-md-2 text-end">
-                <button class="btn btn-primary" type="button" aria-label="Create Employee" @click="router.push('/employees/new')" ><Plus :size="16" />New Employee</button>
-            </div>
+            
             <div v-if="searchTerm || selectedDepartment !== 'all'" class="col-auto">
               <button class="btn btn-link" type="button" @click="clearFilters">Clear filters</button>
             </div>
@@ -185,6 +183,10 @@ function confirmDelete() {
     <div class="toast-container position-fixed bottom-0 end-0 p-3 mb-5">
       <div v-if="announcement" class="toast show text-bg-dark" role="status"><div class="toast-body">{{ announcement }}</div></div>
     </div>
+
+    
+   <button class="btn btn-primary shadow position-fixed bottom-0 end-0 m-3" type="button" aria-label="Create Employee" @click="router.push('/employees/new')" ><Plus :size="16" />New Employee</button>
+    
 
     <ConfirmDialog v-if="employeeToDelete" :title="`Delete ${employeeToDelete.fullName}?`" description="This action cannot be undone. The employee record will be permanently removed." @cancel="employeeToDelete = null" @confirm="confirmDelete" />
   </main>
