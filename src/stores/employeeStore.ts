@@ -1,3 +1,5 @@
+import { computed, ref, watch } from 'vue'
+import { defineStore } from 'pinia'
 import seedEmployees from '../data/employees.json'
 import type { Employee, EmployeeInput } from '../types/employee'
 
@@ -29,3 +31,57 @@ function createId(): string {
   return crypto.randomUUID()
 }
 
+export const useEmployeeStore = defineStore('employees', () => {
+
+  const employees = ref<Employee[]>(loadEmployees())
+  const totalEmployees = computed(() => employees.value.length)
+
+  watch(
+    employees,
+    (value) => localStorage.setItem(STORAGE_KEY, JSON.stringify(value)),
+    { deep: true },
+  )
+
+  function findById(id: string): Employee | undefined {
+    return employees.value.find((employee) => employee.id === id)
+  }
+
+  function isCodeUnique(code: string): boolean {
+
+    const normalized = code.trim().toLocaleLowerCase()
+
+    return !employees.value.some(
+        (employee) => employee.code.trim().toLocaleLowerCase() === normalized,
+    )
+  }
+
+  function addEmployee(input: EmployeeInput): Employee {
+    const employee: Employee = { id: createId(), ...input }
+    employees.value.unshift(employee)
+    return employee
+  }
+
+  function updateEmployee(id: string, input: EmployeeInput): boolean {
+    const index = employees.value.findIndex((employee) => employee.id === id)
+    if (index === -1) return false
+    employees.value[index] = { id, ...input }
+    return true
+  }
+
+  function deleteEmployee(id: string): boolean {
+    const index = employees.value.findIndex((employee) => employee.id === id)
+    if (index === -1) return false
+    employees.value.splice(index, 1)
+    return true
+  }
+
+  return {
+    employees,
+    totalEmployees,
+    findById,
+    isCodeUnique,
+    addEmployee,
+    updateEmployee,
+    deleteEmployee,
+  }
+})
