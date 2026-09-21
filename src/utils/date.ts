@@ -111,7 +111,7 @@ export function getTerminationStatus(
  */
 export function formatCalendarDate(value: string | null): string {
   if (!value) {
-    return '—'
+    return '-'
   }
 
   const date = parseCalendarDate(value)
