@@ -91,4 +91,14 @@ describe('employee store', () => {
       ),
     ).toBe(true)
   })
+
+  it('resets employees to the original JSON data', () => {
+  
+    const store = useEmployeeStore()
+    store.addEmployee(newEmployee)
+    expect(store.employees).toHaveLength(51)
+    store.resetEmployees()
+    expect(store.employees).toHaveLength(50)
+    expect(store.findById('emp051')).toBeUndefined()
+  })
 })
