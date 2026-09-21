@@ -9,7 +9,7 @@ import { useEmployeeStore } from '../stores/employeeStore'
 import type { Employee } from '../types/employee'
 import { getEmploymentStatus, getTerminationStatus } from '../utils/date'
 
-// const router = useRouter()
+const router = useRouter()
 const employeeStore = useEmployeeStore()
 const { employees, totalEmployees } = storeToRefs(employeeStore)
 
@@ -158,6 +158,9 @@ function confirmDelete() {
                   <option v-for="department in departments" :key="department" :value="department">{{ department }}</option>
                 </select>
               </label>
+            </div>
+            <div class="col-12 col-md-2 text-end">
+                <button class="btn btn-primary" type="button" aria-label="Create Employee" @click="router.push('/employees/new')" ><Plus :size="16" />New Employee</button>
             </div>
             <div v-if="searchTerm || selectedDepartment !== 'all'" class="col-auto">
               <button class="btn btn-link" type="button" @click="clearFilters">Clear filters</button>
