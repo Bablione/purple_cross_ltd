@@ -37,6 +37,9 @@ onBeforeUnmount(() => {
       <section
         class="modal-dialog modal-dialog-centered"
         role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-description"
       >
         <div class="modal-content shadow">
           <div class="modal-header">
