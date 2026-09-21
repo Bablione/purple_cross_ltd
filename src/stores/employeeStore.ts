@@ -9,7 +9,7 @@ const STORAGE_KEY = 'purple_cross_ltd'
 function loadEmployees(): Employee[] {
   const fallback = () =>
     (structuredClone(seedEmployees) as EmployeeInput[]).map((employee) => ({
-      id: `seed-${employee.code.toLocaleLowerCase()}`,
+      id: `${employee.code.toLocaleLowerCase()}`,
       ...employee,
     }))
 

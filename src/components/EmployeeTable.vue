@@ -86,9 +86,9 @@ function initials(name: string): string {
           </td>
           <td>
             <div class="btn-group float-end" role="group" :aria-label="`Actions for ${employee.fullName}`">
-              <RouterLink class="btn btn-sm btn-outline-secondary" :to="`/employees/${employee.id}`" :aria-label="`View ${employee.fullName}`" title="View"><Eye :size="16" /></RouterLink>
-              <RouterLink class="btn btn-sm btn-outline-secondary" :to="`/employees/${employee.id}/edit`" :aria-label="`Edit ${employee.fullName}`" title="Edit"><Pencil :size="16" /></RouterLink>
-              <button class="btn btn-sm btn-outline-danger" type="button" :aria-label="`Delete ${employee.fullName}`" title="Delete" @click="emit('delete', employee)"><Trash2 :size="16" /></button>
+              <RouterLink class="px-1 text-primary" :to="`/employees/${employee.id}`" :aria-label="`View ${employee.fullName}`" title="View"><Eye :size="16" /></RouterLink>
+              <RouterLink class="px-1 text-secondary" :to="`/employees/${employee.id}/edit`" :aria-label="`Edit ${employee.fullName}`" title="Edit"><Pencil :size="16" /></RouterLink>
+              <a class="px-1 text-danger" type="button" :aria-label="`Delete ${employee.fullName}`" title="Delete" @click="emit('delete', employee)"><Trash2 :size="16" /></a>
             </div>
           </td>
         </tr>
