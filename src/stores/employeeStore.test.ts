@@ -48,6 +48,11 @@ describe('employee store', () => {
 
     const store = useEmployeeStore()
     const employee = store.addEmployee(newEmployee)
+
+    if (!employee) {
+      throw new Error('Expected employee creation success')
+    }
+
     expect(store.employees).toHaveLength(51)
     expect(employee.code).toBe('EMP051')
     expect(store.findById(employee.id)).toEqual(employee)
@@ -57,6 +62,11 @@ describe('employee store', () => {
 
     const store = useEmployeeStore()
     const employee = store.addEmployee(newEmployee)
+
+    if (!employee) {
+      throw new Error('Expected employee creation success')
+    }
+
     const updated = store.updateEmployee(employee.id, {
       ...newEmployee,
       occupation: 'Frontend Developer',
@@ -70,6 +80,11 @@ describe('employee store', () => {
 
     const store = useEmployeeStore()
     const employee = store.addEmployee(newEmployee)
+
+    if (!employee) {
+      throw new Error('Expected employee creation success')
+    }
+    
     const deleted = store.deleteEmployee(employee.id)
     expect(deleted).toBe(true)
     expect(store.findById(employee.id)).toBeUndefined()
