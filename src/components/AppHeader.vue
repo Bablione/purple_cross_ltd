@@ -11,7 +11,10 @@ const router = useRouter()
 const showResetModal = ref(false)
 
 function resetData() {
-  employeeStore.resetEmployees()
+  if (!employeeStore.resetEmployees()) {
+    return
+  }
+  
   showResetModal.value = false
   router.push("/")
 }

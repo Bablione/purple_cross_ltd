@@ -12,8 +12,13 @@ const employeeStore = useEmployeeStore()
 const employee = computed(() => employeeStore.findById(String(route.params.id)))
 
 function saveEmployee(input: EmployeeInput) {
+  
   if (!employee.value) return
-  employeeStore.updateEmployee(employee.value.id, input)
+  
+  if (!employeeStore.updateEmployee(employee.value.id, input)) {
+    return
+  }
+  
   router.push({ name: 'employee-details', params: { id: employee.value.id }, query: { updated: 'true' } })
 }
 </script>
@@ -26,7 +31,8 @@ function saveEmployee(input: EmployeeInput) {
       <h1 class="h2">Edit {{ employee.fullName }}</h1>
       <p class="text-body-secondary">Update this employee’s profile and employment details.</p>
     </header>
-    <EmployeeForm :employee="employee" submit-label="Save changes" @save="saveEmployee" @cancel="router.push(`/employees/${employee.id}`)" />
+    <div v-if="employeeStore.saveMessage" class="alert alert-success" role="status">{{ employeeStore.saveMessage }}</div>
+    <EmployeeForm :key="employee.id" :employee="employee" submit-label="Save changes" @save="saveEmployee" @cancel="router.push(`/employees/${employee.id}`)" />
   </main>
   <main v-else class="container py-5 text-center">
     <h1 class="h2">Employee not found</h1>

@@ -79,7 +79,10 @@ function clearFilters() {
 function confirmDelete() {
   if (!employeeToDelete.value) return
   const name = employeeToDelete.value.fullName
-  employeeStore.deleteEmployee(employeeToDelete.value.id)
+  
+  if (!employeeStore.deleteEmployee(employeeToDelete.value.id)) {
+    return
+  }
   employeeToDelete.value = null
   announcement.value = `${name} was deleted.`
   window.setTimeout(() => (announcement.value = ''), 3500)

@@ -12,7 +12,6 @@ type FormKey = keyof EmployeeInput
 type FormErrors = Partial<Record<FormKey, string>>
 
 const employeeStore = useEmployeeStore()
-const submitting = ref(false)
 const errors = reactive<FormErrors>({})
 const form = reactive<EmployeeInput>({
   code: props.employee?.code ?? '',
@@ -75,7 +74,6 @@ function submit() {
     requestAnimationFrame(() => document.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus())
     return
   }
-  submitting.value = true
   emit('save', {
     code: form.code.trim(),
     fullName: form.fullName.trim(),
@@ -148,7 +146,7 @@ function submit() {
         <p class="small text-body-secondary mb-0"><span class="text-danger">*</span> Required fields</p>
         <div class="d-flex gap-2">
           <button class="btn btn-secondary" type="button" @click="emit('cancel')">Cancel</button>
-          <button class="btn btn-primary" type="submit" :disabled="submitting"><Check :size="17" /> {{ submitLabel }}</button>
+          <button class="btn btn-primary" type="submit"><Check :size="17" /> {{ submitLabel }}</button>
         </div>
       </div>
     </footer>
