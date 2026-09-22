@@ -1,38 +1,37 @@
-# Project Purpose
-
-Creation and organization of an employee management system, composed of 
-- a main dashboard
-- a create/edit page
-- a view page
-
 # Requirements
 
-- Node.js 20.19 or later
+- Node.js 22.22.2 or later
 - npm
 
-# Installation
-Clone the repository and install the dependencies:
+## Installation
 
+```bash
 git clone https://github.com/Bablione/purple_cross_ltd.git
 cd purple_cross_ltd
-npm install
+npm ci
 npm run dev
+```
 
+Open the local URL printed in the terminal.
 
-Start the development server:
-npm run dev
+## Available commands
 
-# Available commands
-npm run dev
-Starts the development server.
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Check TypeScript and create a production build |
+| `npm run preview` | Preview the production build locally |
+| `npm test` | Run the automated tests once |
+| `npm run test:watch` | Run tests in watch mode |
 
-npm run build
-Checks the TypeScript code and creates a production build.
+The automated tests cover date utilities and employee store operations.
 
-npm run preview
-Runs the production build locally.
+## Resetting demo data
 
-# Features
+Use **Reload JSON** in the header and confirm the dialog to restore the sample employees. This replaces changes saved in this browser.
+
+## Features
+
 - View employees in a tabular way
 - Filter by name, code, occupation, or department
 - Sort table columns
@@ -44,7 +43,9 @@ Runs the production build locally.
 - Local storage persistence
 - Responsive layout
 
-# Folder structure
+## Folder structure
+
+```text
 In src
   components/   Reusable components
   data/         Initial employee JSON file
@@ -53,29 +54,39 @@ In src
   types/        TypeScript interfaces (models)
   utils/        Date and status internal logic functions
   views/        App level pages
+```
 
-# Routes
-/	                  Employee list
-/employees/new	      Create an employee
-/employees/:id	      View employee details
-/employees/:id/edit	  Edit an employee
+## Routes
+
+```text
+/                    Employee list
+/employees/new       Create an employee
+/employees/:id        View employee details
+/employees/:id/edit   Edit an employee
+```
+
 Unknown routes display Not Found View
 
-# Architecture
+## Architecture
+
 The application uses a simple component-based structure.
 
 Views represent complete pages, while components contain reusable elements (form, tables).
 
-Pinia stores the data and handles the CRUD operations. 
+Pinia stores the data and handles the CRUD operations.
+
 Vue Router is for navigation between pages.
 
 JSON file is the original data source.
+
 Changes are saved to localStorage for persistence.
 
-# Why Bootstrap?
-Provides consistent set of utilities, for a small size sample application, the use of custom hand made styling layer is not of use.
+## Why Bootstrap?
 
-# Validation
+Bootstrap provides consistent styling, responsive layouts, and utility classes. It keeps custom CSS minimal and lets the implementation focus on employee-management functionality.
+
+## Validation
+
 The employee form checks that:
 
 - Employee code is required
@@ -84,16 +95,23 @@ The employee form checks that:
 - Full name contains at least three characters
 - Occupation is required
 - Department is required
-- Employment date is valid
+- Employment date is required and must be valid
 - Termination date is valid when supplied
 - Termination date is not before the employment date
 - Validation messages are displayed next to the relevant fields.
 
-# Date handling
+## Date handling
+
 The application treats dates as calendar dates rather than UTC timestamps.
+
 A value such as 2026-09-28 is split before creating a local date. This avoids dates changing because of timezone differences.
 
-# Known limitations
+Employment beginning today is treated as currently employed. Termination taking effect today is treated as terminated. Once an employee is terminated, the “Currently employed” label is hidden.
+
+## Known limitations
+
 There is no backend or database
+
 Data is stored separately in each browser
+
 Clearing browser storage removes saved changes
