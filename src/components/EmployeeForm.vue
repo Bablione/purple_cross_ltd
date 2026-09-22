@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 import { CalendarDays, Check, UserRound } from '@lucide/vue'
 import { useEmployeeStore } from '../stores/employeeStore'
 import type { Employee, EmployeeInput } from '../types/employee'
