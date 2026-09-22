@@ -79,7 +79,7 @@ function initials(name: string): string {
             <span class="d-block">{{ formatCalendarDate(employee.dateOfEmployment) }}</span>
             <small 
               v-if="getEmployeeLifecycleStatus(employee.dateOfEmployment, employee.terminationDate) !== 'Terminated'" 
-              :class="getEmployeeLifecycleStatus(employee.dateOfEmployment, employee.terminationDate) === 'Employed soon' ? 'text-primary' : 'text-success'">{{ getEmployeeLifecycleStatus(employee.dateOfEmployment, employee.terminationDate) }}</small>
+              :class="getEmploymentStatus(employee.dateOfEmployment) === 'Employed soon' ? 'text-primary' : 'text-success'">{{ getEmploymentStatus(employee.dateOfEmployment) }}</small>
           </td>
           <td>
             <span class="d-block">{{ formatCalendarDate(employee.terminationDate) }}</span>

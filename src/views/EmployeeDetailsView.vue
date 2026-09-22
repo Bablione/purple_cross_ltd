@@ -51,7 +51,7 @@ function initials(name: string) {
           <div class="list-group list-group-flush">
             <div class="list-group-item p-3 d-flex align-items-start gap-3">
               <BriefcaseBusiness :size="20" class="text-success mt-1" />
-              <div><small class="text-body-secondary d-block">Employment date</small><strong>{{ formatCalendarDate(employee.dateOfEmployment) }}</strong><span v-if="getTerminationStatus(employee.dateOfEmployment) !== 'Terminated'" class="badge text-bg-success ms-2">{{ getEmployeeLifecycleStatus(employee.dateOfEmployment, employee.terminationDate) }}</span></div>
+              <div><small class="text-body-secondary d-block">Employment date</small><strong>{{ formatCalendarDate(employee.dateOfEmployment) }}</strong><span v-if="getEmployeeLifecycleStatus(employee.dateOfEmployment, employee.terminationDate) !== 'Terminated'" class="badge text-bg-success ms-2">{{ getEmploymentStatus(employee.dateOfEmployment) }}</span></div>
             </div>
             <div class="list-group-item p-3 d-flex align-items-start gap-3">
               <CalendarDays :size="20" class="text-warning mt-1" />
