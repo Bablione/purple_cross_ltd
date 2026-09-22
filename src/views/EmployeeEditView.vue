@@ -32,7 +32,7 @@ function saveEmployee(input: EmployeeInput) {
       <p class="text-body-secondary">Update this employee’s profile and employment details.</p>
     </header>
     <div v-if="employeeStore.saveMessage" class="alert alert-success" role="status">{{ employeeStore.saveMessage }}</div>
-    <EmployeeForm :employee="employee" submit-label="Save changes" @save="saveEmployee" @cancel="router.push(`/employees/${employee.id}`)" />
+    <EmployeeForm :key="employee.id" :employee="employee" submit-label="Save changes" @save="saveEmployee" @cancel="router.push(`/employees/${employee.id}`)" />
   </main>
   <main v-else class="container py-5 text-center">
     <h1 class="h2">Employee not found</h1>
