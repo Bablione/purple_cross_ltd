@@ -1,4 +1,4 @@
-import type { EmploymentStatus, TerminationStatus, EmployeeLifeCycleStatus } from '../types/employee'
+import type { EmploymentStatus, TerminationStatus, EmployeeLifecycleStatus } from '../types/employee'
 
 // Expected format: YYYY-MM-DD
 const DATE_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/
@@ -128,7 +128,7 @@ export function getEmployeeLifecycleStatus(
   employmentDate: string,
   terminationDate: string | null,
   now = new Date(),
-): EmployeeLifeCycleStatus {
+): EmployeeLifecycleStatus {
   if (
     terminationDate &&
     compareCalendarDates(terminationDate, now) <= 0
